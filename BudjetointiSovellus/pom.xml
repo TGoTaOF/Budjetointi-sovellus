@@ -36,9 +36,11 @@
                 <configuration>
                     <targetClasses>
                         <param>budjetointisovellus.*</param>
+                        <param>ui.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>budjetointisovellus.*</param>
+                        <param>ui.*</param>
                     </targetTests>
                 </configuration>
             </plugin>

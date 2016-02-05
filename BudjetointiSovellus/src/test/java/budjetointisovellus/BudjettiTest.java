@@ -1,16 +1,6 @@
 package budjetointisovellus;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-import budjetointisovellus.Budjetti;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.time.LocalDate;
-import java.util.Scanner;
+import java.util.HashMap;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,12 +10,9 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author mxsampsa
+ * @author Sampsa
  */
 public class BudjettiTest {
-    
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     
     public BudjettiTest() {
     }
@@ -40,42 +27,73 @@ public class BudjettiTest {
     
     @Before
     public void setUp() {
-        Scanner lukija = new Scanner(System.in);
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(outContent));
     }
     
     @After
     public void tearDown() {
-        System.setOut(null);
-        System.setErr(null);
+    }
+
+    @Test
+    public void LuontiJaPalautusToimii() {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("testi", 2);
+        Budjetti budjetti = new Budjetti(map);
+        assertEquals(true, budjetti.haeMap().toString().contains("testi"));
     }
     
     @Test
-    public void TiedostoVoidaanLukea() {
-        Budjetti budget = new Budjetti("Jotain", "testaaja");
-        assertEquals("onnistui", budget.lueTiedosto());
+    public void LisaaArvoToimii() {
+        HashMap<String, Integer> map = new HashMap<>();
+        Budjetti budjetti = new Budjetti(map);
+        budjetti.lisaaArvo("testi", 2);
+        assertEquals(true, budjetti.haeMap().toString().contains("testi"));
     }
     
     @Test
-    public void tiedotOikein() {
-        Budjetti budget = new Budjetti("Jotain", "testaaja");
-        budget.lueTiedosto();
-        assertEquals("testaaja", budget.getTekija());
-        assertEquals("" + LocalDate.now(), budget.getLuontiPaiva());
+    public void haeArvoToimii() {
+        HashMap<String, Integer> map = new HashMap<>();
+        Budjetti budjetti = new Budjetti(map);
+        budjetti.lisaaArvo("testi", 2);
+        assertEquals(2, budjetti.haeArvo("testi"));
     }
     
     @Test
-    public void EpakelpoTiedostoNimi() {
-        Budjetti budget = new Budjetti("", "testaaja");
-        assertEquals("Ei voitu luoda uutta tiedostoa!", outContent.toString().trim());
+    public void muokkaaArvoaToimii() {
+        HashMap<String, Integer> map = new HashMap<>();
+        Budjetti budjetti = new Budjetti(map);
+        budjetti.lisaaArvo("testi", 2);
+        budjetti.muokkaaArvoa("testi", 5);
+        assertEquals(5, budjetti.haeArvo("testi"));
     }
     
     @Test
-    public void palautaTekstinaToimii() {
-        Budjetti budget = new Budjetti("uusi", "testaaja");
-        budget.lueTiedosto();
-        assertEquals("testaaja\n" + LocalDate.now() + "\n" 
-                + budget.viimeksiMuokattu() ,budget.palautaTekstina());
+    public void poistaKenttaToimii() {
+        HashMap<String, Integer> map = new HashMap<>();
+        Budjetti budjetti = new Budjetti(map);
+        budjetti.lisaaArvo("testi", 2);
+        budjetti.poistaKentta("testi");
+        assertEquals(false, budjetti.haeMap().toString().contains("testi"));
+    }
+    
+    @Test
+    public void summaToimii() {
+        HashMap<String, Integer> map = new HashMap<>();
+        Budjetti budjetti = new Budjetti(map);
+        budjetti.lisaaArvo("testi1", 2);
+        budjetti.lisaaArvo("testi2", 3);
+        budjetti.lisaaArvo("testi3", 7);
+        budjetti.lisaaArvo("testi4", 5);
+        assertEquals(17, budjetti.summa());
+    }
+    
+    @Test
+    public void summaToimiiNegatiivisillakin() {
+        HashMap<String, Integer> map = new HashMap<>();
+        Budjetti budjetti = new Budjetti(map);
+        budjetti.lisaaArvo("testi1", 2);
+        budjetti.lisaaArvo("testi2", -3);
+        budjetti.lisaaArvo("testi3", 7);
+        budjetti.lisaaArvo("testi4", -5);
+        assertEquals(1, budjetti.summa());
     }
 }
