@@ -3,10 +3,13 @@ package budjetointisovellus;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -108,11 +111,7 @@ public class TiedostonKasittelijaTest {
             TiedostonKasittelija budget = new TiedostonKasittelija("test", "testaaja");
             budget.lueTiedosto("-");
             budget.tallenna("-", new HashMap<>());
-            String testattava = "test";
-            if (System.getProperty("os.name").startsWith("Windows")) {
-                 testattava += ".txt";
-            }
-            File testiTiedosto = new File(testattava);
+            File testiTiedosto = new File("test.txt");
             Scanner customlukija = new Scanner(testiTiedosto, "UTF-8");
             if (customlukija.hasNextLine()) {
                 assertEquals(true, customlukija.nextLine().contains("testaaja")); 
@@ -191,11 +190,7 @@ public class TiedostonKasittelijaTest {
             HashMap<String, Integer> map = new HashMap<>();
             map.put("dataa", -23);
             budget.tallenna(salasana1, map);
-            String testattava = "test";
-            if (System.getProperty("os.name").startsWith("Windows")) {
-                 testattava += ".txt";
-            }
-            File testiTiedosto = new File(testattava);
+            File testiTiedosto = new File("test.txt");
             TiedostonKasittelija budget2 = new TiedostonKasittelija(testiTiedosto);
             budget2.lueTiedosto(salasana1);
             assertEquals(true, budget2.palautaTekstina().contains("dataa"));

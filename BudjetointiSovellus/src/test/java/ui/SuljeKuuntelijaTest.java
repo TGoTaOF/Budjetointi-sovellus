@@ -1,5 +1,8 @@
+
 package ui;
 
+import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,9 +15,9 @@ import static org.junit.Assert.*;
  *
  * @author Sampsa
  */
-public class KayttoliittymaTest {
+public class SuljeKuuntelijaTest {
     
-    public KayttoliittymaTest() {
+    public SuljeKuuntelijaTest() {
     }
     
     @BeforeClass
@@ -34,9 +37,10 @@ public class KayttoliittymaTest {
     }
 
     @Test
-    public void eiAiheutaPoikkeusta() {
+    public void luontiOnnistuu() {
         try {
-            Kayttoliittyma kayttoliittyma = new Kayttoliittyma();
+            JFrame frame = new JFrame();
+            SuljeKuuntelija sulje = new SuljeKuuntelija(frame);
             assertEquals(true, true);
         } catch (Exception e) {
             assertEquals(true, false);
@@ -44,10 +48,12 @@ public class KayttoliittymaTest {
     }
     
     @Test
-    public void testRun() {
-        Kayttoliittyma kayttoliittyma = new Kayttoliittyma();
+    public void NappiinLiittaminenOnnistuu() {
         try {
-            kayttoliittyma.run();
+            JFrame frame = new JFrame();
+            SuljeKuuntelija sulje = new SuljeKuuntelija(frame);
+            JButton nappi = new JButton("");
+            nappi.addActionListener(sulje);
             assertEquals(true, true);
         } catch (Exception e) {
             assertEquals(true, false);

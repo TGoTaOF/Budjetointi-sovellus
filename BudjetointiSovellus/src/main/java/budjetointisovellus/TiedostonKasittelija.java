@@ -2,13 +2,19 @@ package budjetointisovellus;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- *
+ * Luokka tiedoston(.txt) käsittelyyn.
+ * <p>
+ * Budjetin salausksen purku tapahtuu tiedoston lukuvaiheessa ja salaus tallennus vaiheessa.
+ * <p>
+ * Budjetti tiedostojen muoto, numerot=rivinumeroja: 1.Tekijä, 2.Luontipäivä, 3.ViimeksiKäytetty, 4.SalausAvain, 5.Merkintä:arvo, 6.Merkintä2:arvo2, jne...
+ * 
  * @author mxsampsa
  */
 public class TiedostonKasittelija {
@@ -19,12 +25,18 @@ public class TiedostonKasittelija {
     private String salaus;
     private Salaus salaaja;
     private HashMap<String, Integer> mappi;
-
-    public TiedostonKasittelija(File tiedosto) { //olemassa olevan budjetin avaamiseen
+    
+    /**
+     * Alustus olemassa olevan budjetin avaamiseen.
+     */
+    public TiedostonKasittelija(File tiedosto) {
         this.tiedosto = tiedosto;
     }
 
-    public TiedostonKasittelija(String budjetinNimi, String tekija) { //uuden budjetin luomiseen
+    /**
+     * Alustus uuden budjetin luomiseen.
+     */
+    public TiedostonKasittelija(String budjetinNimi, String tekija) { 
         try {
             if (System.getProperty("os.name").startsWith("Windows") && !budjetinNimi.isEmpty()) {
                 budjetinNimi += ".txt";
@@ -34,12 +46,15 @@ public class TiedostonKasittelija {
             FileWriter kirjoittaja = new FileWriter(this.tiedosto);
             kirjoittaja.write(tekija + "\n" + LocalDate.now() + "\n" + viimeksiMuokattu() + "\n-");
             kirjoittaja.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Ei voitu luoda uutta tiedostoa!");
         }
     }
-
-    public String lueTiedosto(String salasana) { //lukee tiedoston HashMap muotoon salauksen mahdollisen tarkistuksen ja purkamisen jälkeen.
+    
+    /**
+     * Lukee tiedoston HashMap muotoon salauksen mahdollisen tarkistuksen ja purkamisen jälkeen.
+     */
+    public String lueTiedosto(String salasana) { 
         this.mappi = new HashMap<String, Integer>();
         if (this.salaus == null || (this.salaus.equals("-") && !this.salaus.equals(salasana))) {
             this.salaus = salasana;
@@ -73,12 +88,15 @@ public class TiedostonKasittelija {
             }
             lukija.close();
             return "onnistui";
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return "Jotain meni vikaan :/";
         }
     }
     
-    public boolean onkoSalattu(String tarkistettava) { //Tarkistaa onko tiedosto salattu.
+    /**
+     * Tarkistaa onko tiedosto salattu.
+     */
+    public boolean onkoSalattu(String tarkistettava) { 
         Scanner lukija = new Scanner(tarkistettava);
         int i = 0;
         while (i < 3 && lukija.hasNextLine()) {
@@ -95,32 +113,48 @@ public class TiedostonKasittelija {
         }
     }
     
+    /**
+     * Palauttaa budjetin HashMappina.
+     */
     public HashMap<String, Integer> haeMappi() {
         return this.mappi;
     }
 
+    /**
+     * Palauttaa budjetin tekijän.
+     */
     public String haeTekija() {
         return this.tekija;
     }
     
-    public String haeSalasana() { //metodin läsnä olo "lopullisessa" toteutuksessa ei ole vielä aivan varma. Käyttöliittymä saattaa tarvita... 
+    /**
+     * Palauttaa budjetin salaus salasanan.
+     * <p>
+     * Metodin läsnä olo "lopullisessa" toteutuksessa ei ole vielä aivan varma.
+     */
+    public String haeSalasana() { 
         return this.salaus;
     }
 
+    /**
+     * Palauttaa budjetin luontipäivän.
+     */
     public String haeLuontiPaiva() {
         return this.luontiPaiva;
     }
 
+    /**
+     * Palauttaa ajan jolloin tiedostoa viimeksi muokattu.
+     */
     public String viimeksiMuokattu() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(this.tiedosto.lastModified());
     }
 
-    public void tulosta() { //omia testauksia varten- ei saa välittää tästä!!!
-        System.out.println(palautaTekstina());
-    }
-
-    public String palautaTekstina() { // talletusta varten tekstiksi
+    /**
+     * Talletusta varten budjetti tekstiksi
+     */
+    public String palautaTekstina() { 
         String palautus = this.tekija + "\n"
                 + this.luontiPaiva + "\n"
                 + viimeksiMuokattu() + "\n"
@@ -129,14 +163,18 @@ public class TiedostonKasittelija {
             return palautus;
         } else {
             for (String s : this.mappi.keySet()) {
-            palautus = palautus + "\n" + s + ":" + this.mappi.get(s);
+                palautus = palautus + "\n" + s + ":" + this.mappi.get(s);
+            }
+            return palautus;
         }
-        return palautus; 
-        }
-        
     }
 
-    public void tallenna(String salasana, HashMap<String, Integer> map) { //Tallennetaan tiedostoksi Salauksella tai ilman
+    /**
+     * Tallennetaan tiedostoksi Salauksella tai ilman.
+     * <p>
+     * Jos salasana "-" ei salata.
+     */
+    public void tallenna(String salasana, HashMap<String, Integer> map) {
         this.mappi = map;
         String tallennettava = palautaTekstina();
         if (!this.salaus.equals("-") || !this.salaus.equals(salasana)) {
@@ -152,17 +190,8 @@ public class TiedostonKasittelija {
             FileWriter kirjoittaja = new FileWriter(this.tiedosto);
             kirjoittaja.write(tallennettava);
             kirjoittaja.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Ei voitu tallentaa");
         }
     }
 }
-//Budjetti tiedostojen muoto, numerot=rivinumeroja:
-
-//1.Tekijä
-//2.Luontipäivä
-//3.ViimeksiKäytetty
-//4.SalausAvain
-//5.Merkintä:arvo
-//6.Merkintä2:arvo2
-//jne...
