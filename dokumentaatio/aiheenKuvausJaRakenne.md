@@ -16,8 +16,6 @@
 
 ###Sekvenssiaaviot
 
----
-
 ![Sekvenssi Kaavio1](/dokumentaatio/sekvenssikaavio1.png)
 
 ---
