@@ -14,6 +14,6 @@
 
 ###Sekvenssiaaviot
 
-![Sekvenssi Kaavio](/dokumentaatio/sekvenssikaavio1.png)
+![Sekvenssi Kaavio1](/dokumentaatio/sekvenssikaavio1.png)
 
-![Sekvenssi Kaavio](/dokumentaatio/sekvenssikaavio2.png)
+![Sekvenssi Kaavio2](/dokumentaatio/sekvenssikaavio2.png)
