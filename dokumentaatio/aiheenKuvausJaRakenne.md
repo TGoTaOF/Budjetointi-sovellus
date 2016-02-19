@@ -6,6 +6,7 @@
 
 **Käyttäjien toiminnot:** Kirjanpidon luominen, tallennus tai lukeminen ja kirjanpidon muokkaus mikäli oikeudet muokata.(salasana vahvisteinen toteutus).
 
+
 ###LuokkaKaavio.
 
 ![Luokka kaavio](/dokumentaatio/budjetointisovellus.png)
@@ -13,6 +14,6 @@
 
 ###Sekvenssiaaviot
 
-![Sekvenssikaavio](/dokumentaatio/sekvenssikaavio1.png)
+![Sekvenssi Kaavio](/dokumentaatio/sekvenssikaavio1.png)
 
-![Luokka kaavio](/dokumentaatio/sekvenssikaavio2.png)
+![Sekvenssi Kaavio](/dokumentaatio/sekvenssikaavio2.png)
