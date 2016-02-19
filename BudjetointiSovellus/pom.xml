@@ -35,12 +35,14 @@
                 <version>1.1.8</version>
                 <configuration>
                     <targetClasses>
-                        <param>budjetointisovellus.*</param>
-                        <param>ui.*</param>
+                        <param>fi.mxsampsa.budjetointisovellus.Budjetti</param>
+                        <param>fi.mxsampsa.budjetointisovellus.Salaus</param>
+                        <param>fi.mxsampsa.budjetointisovellus.TiedostonKasittelija</param>
                     </targetClasses>
                     <targetTests>
-                        <param>budjetointisovellus.*</param>
-                        <param>ui.*</param>
+                        <param>fi.mxsampsa.budjetointisovellus.BudjettiTest</param>
+                        <param>fi.mxsampsa.budjetointisovellus.SalausTest</param>
+                        <param>fi.mxsampsa.budjetointisovellus.TiedostonKasittelijaTest</param>
                     </targetTests>
                 </configuration>
             </plugin>
