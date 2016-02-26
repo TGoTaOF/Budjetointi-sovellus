@@ -22,11 +22,12 @@ public class VirheIlmoitus {
     public VirheIlmoitus(JPanel parametriKehys) {
         this.kehys = parametriKehys;
     }
-    
+
     /**
      * Katsoo onko käyttäjän syöte epäkelpo.
      * <p>
      * a-ö ja 0-9 kelpaa.
+     *
      * @param syote käyttäjän syöte.
      * @return kelpaako vai ei.
      */
@@ -46,11 +47,12 @@ public class VirheIlmoitus {
         }
         return false;
     }
-    
+
     /**
      * Ilmoittaa mikäli tapahtui virhe salasanaa kysyvässä guissa.
      * <p>
      * metodia kutsutaan vain poikkeuksen tapahtuessa.
+     *
      * @return palauttaa aina true.
      */
     public boolean virheSalasanaaKysyttaessa() {
@@ -60,11 +62,12 @@ public class VirheIlmoitus {
                 JOptionPane.WARNING_MESSAGE);
         return true;
     }
-    
+
     /**
      * Ilmoittaa mikäli käyttäjän syöte ei ollut luku.
      * <p>
      * metodia kutsutaan vain poikkeuksen tapahtuessa.
+     *
      * @return /palauttaa aina true.
      */
     public boolean syoteEiLuku() {
@@ -74,11 +77,12 @@ public class VirheIlmoitus {
                 JOptionPane.WARNING_MESSAGE);
         return true;
     }
-    
+
     /**
      * Ilmoittaa mikäli uuden budjetin luominen ei onnistunut.
      * <p>
      * metodia kutsutaan vain poikkeuksen tapahtuessa.
+     *
      * @return /palauttaa aina true.
      */
     public boolean uudenBudjetinLuominenEpaonnistui() {
@@ -88,11 +92,12 @@ public class VirheIlmoitus {
                 JOptionPane.WARNING_MESSAGE);
         return true;
     }
-    
+
     /**
      * Ilmoittaa mikäli budjetin tallentaminen ei onnistunut.
      * <p>
      * metodia kutsutaan vain poikkeuksen tapahtuessa.
+     *
      * @return /palauttaa aina true.
      */
     public boolean budjetinTallentaminenEpaonnistui() {
@@ -102,11 +107,12 @@ public class VirheIlmoitus {
                 JOptionPane.WARNING_MESSAGE);
         return true;
     }
-    
+
     /**
      * Ilmoittaa jos olemassa olevan budjetin avaus ei onnistunut.
      * <p>
      * metodia kutsutaan vain poikkeuksen tapahtuessa.
+     *
      * @return /palauttaa aina true.
      */
     public boolean budjetinAvaaminenEpaonnistui() {
@@ -116,7 +122,10 @@ public class VirheIlmoitus {
                 JOptionPane.WARNING_MESSAGE);
         return true;
     }
-    
+
+    /**
+     * Ilmoittaa jos riviä poistettaessa yhtään riviä ei ole valittuna.
+     */
     public void eiRiviaValittuna() {
         JOptionPane.showMessageDialog(this.kehys,
                 "Valitse rivi ennen poistoa.",

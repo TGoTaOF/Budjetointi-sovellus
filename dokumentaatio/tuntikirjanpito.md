@@ -13,3 +13,5 @@
 19.02.2016 aikaa käytetty: n. 7h Deadline 5:n checkstylet yms. Koodia saatettu eteenpäin + testejä.
 
 25.02.2016 aikaa Käytetty: n. 7h Käyttöjärjestelmän virittelyä ja parantelua.
+
+26.02.2016 aikaa käytetty: n. 4h Rakenne kuvaus ja Käyttöohjeet. Raporttien generointi + jar-tiedosto.

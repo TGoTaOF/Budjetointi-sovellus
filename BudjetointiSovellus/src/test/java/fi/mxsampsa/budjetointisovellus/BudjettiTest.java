@@ -48,23 +48,23 @@ public class BudjettiTest {
     }
 
     @Test
-    public void haeArvoToimii() {
-        budjetti.lisaaArvo("testi", 2.0);
-        assertEquals(true, Math.abs(2.0 - budjetti.haeArvo("testi")) == 0.0);
-    }
-
-    @Test
-    public void muokkaaArvoaToimii() {
-        budjetti.lisaaArvo("testi", 2.0);
-        budjetti.muokkaaArvoa("testi", 5.0);
-        assertEquals(true, Math.abs(5.0 - budjetti.haeArvo("testi")) == 0.0);
-    }
-
-    @Test
     public void poistaKenttaToimii() {
         budjetti.lisaaArvo("testi", 2.0);
         budjetti.poistaKentta("testi");
         assertEquals(false, budjetti.haeMap().toString().contains("testi"));
+    }
+    
+    @Test
+    public void LisaaArvoToimiiNegatiivisilla() {
+        budjetti.lisaaArvo("testi", -2.0);
+        assertEquals(true, budjetti.menot.toString().contains("testi"));
+    }
+
+    @Test
+    public void poistaKenttaToimiiNegatiivisilla() {
+        budjetti.lisaaArvo("testi", -2.0);
+        budjetti.poistaKentta("testi");
+        assertEquals(false, budjetti.menot.toString().contains("testi"));
     }
 
     @Test
@@ -162,6 +162,22 @@ public class BudjettiTest {
             assertEquals(true, budjetti.budjetinNimi().contains("test"));
             assertEquals("testaaja", budjetti.budjetinTekija());
             assertEquals((String) LocalDate.now().toString(), (String) budjetti.budjetinLuontiPaiva());
+            assertEquals(true, budjetti.viimeinenMuokkausPaiva().contains("" + LocalDate.now()));
+        } catch (Exception e) {
+            assertEquals(true, false);
+        }
+    }
+    
+    @Test
+    public void budjetinAvausEiTuotaOngelmiaLajitteussa() {
+        try {
+            budjetti.valitseBudjetti("test", "testaaja");
+            budjetti.avaaBudjetti("-");
+            budjetti.lisaaArvo("test", 3.0);
+            budjetti.lisaaArvo("test2", -53.0);
+            budjetti.lajitteleMenoihinJaTuloihin(budjetti.haeMap());
+            assertEquals(true, budjetti.haeMap().containsKey("test"));
+            assertEquals(true, budjetti.haeMap().containsKey("test2"));
         } catch (Exception e) {
             assertEquals(true, false);
         }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package fi.mxsampsa.ui;
 
 import fi.mxsampsa.budjetointisovellus.Budjetti;
@@ -17,6 +16,7 @@ public class SalausUI extends javax.swing.JDialog {
     private Budjetti budjetti;
     private String komento;
     private UIKehys kutsuja;
+
     /**
      * Creates new form SalausUI
      */
@@ -359,7 +359,7 @@ public class SalausUI extends javax.swing.JDialog {
         if (this.salasana.getText().equals("-")) {
         } else if (this.salasana.getText().length() > 1) {
             String apu = "";
-            for (int i = 0; i < this.salasana.getText().length()-1; i++) {
+            for (int i = 0; i < this.salasana.getText().length() - 1; i++) {
                 apu = apu + this.salasana.getText().charAt(i);
             }
             this.salasana.setText(apu);
@@ -373,13 +373,13 @@ public class SalausUI extends javax.swing.JDialog {
         try {
             switch (this.komento) {
                 case "tallenna":
-                this.budjetti.tallennaBudjetti(this.salasana.getText());
-                break;
+                    this.budjetti.tallennaBudjetti(this.salasana.getText());
+                    break;
                 case "avaa":
-                this.budjetti.avaaBudjetti(this.salasana.getText());
-                break;
+                    this.budjetti.avaaBudjetti(this.salasana.getText());
+                    break;
             }
-        } catch (Exception e) { 
+        } catch (Exception e) {
             this.kutsuja.sattuikoVirhe = true;
         } finally {
             this.dispose();
@@ -398,16 +398,15 @@ public class SalausUI extends javax.swing.JDialog {
             this.nappiOK.setEnabled(false);
         }
     }
-    
+
     public boolean salasananPituusNelja() {
         return this.salasana.getText().length() >= 4;
     }
-    
+
     public boolean salasanaOnViiva() {
         return this.salasana.getText().equals("-");
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */

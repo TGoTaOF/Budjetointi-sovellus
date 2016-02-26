@@ -2,17 +2,20 @@ package fi.mxsampsa.budjetointisovellus;
 
 import java.io.File;
 import java.util.HashMap;
+
 /**
  * Luokka Budjetin kenttien ja arvojen käsittelyyn.
+ *
  * @author mxsampsa
  */
 public class Budjetti {
-    
+
     private HashMap<String, Double> mappi;
     public HashMap<String, Double> tulot;
     public HashMap<String, Double> menot;
     public TiedostonKasittelija kasittelija;
     private boolean budjettiAvattuna;
+    
     /**
      * Alustaa budjetin.
      */
@@ -24,6 +27,7 @@ public class Budjetti {
     }
     /**
      * Lisää budjettiin kentän ja sen arvon.
+     *
      * @param kentta merkintä budjetissa.
      * @param arvo merkinnän arvo.
      */
@@ -36,21 +40,8 @@ public class Budjetti {
         }
     }
     /**
-     * Muokkaa yhden budjetin kentän arvoa.
-     * @param kentta merkintä budjetissa.
-     * @param uusiArvo merkinnän uusi arvo.
-     */
-    public void muokkaaArvoa(String kentta, Double uusiArvo) {
-        if (this.mappi.get(kentta) < 0) {
-            this.menot.replace(kentta, uusiArvo);
-        } else {
-            this.tulot.replace(kentta, uusiArvo);
-        }
-        this.mappi.containsKey(kentta);
-        this.mappi.replace(kentta, uusiArvo);
-    }
-    /**
      * Poistaa tietyn kentän budjetista.
+     *
      * @param kentta merkintä budjetissa.
      */
     public void poistaKentta(String kentta) {
@@ -62,15 +53,8 @@ public class Budjetti {
         this.mappi.remove(kentta);
     }
     /**
-     * Hakee tietyn budjetin kentän arvon.
-     * @param kentta merkintä budjetissa.
-     * @return merkinnän arvon.
-     */
-    public Double haeArvo(String kentta) {
-        return this.mappi.get(kentta);
-    }
-    /**
      * Palauttaa budjetin kaikki arvot yhteenlaskettuna.
+     *
      * @return koko budjetin saldon.
      */
     public Double summa() {
@@ -82,6 +66,7 @@ public class Budjetti {
     }
     /**
      * Palauttaa budjetin kaikki menot yhteenlaskettuna.
+     *
      * @return menojen summan.
      */
     public Double menotSumma() {
@@ -93,6 +78,7 @@ public class Budjetti {
     }
     /**
      * Palauttaa budjetin kaikki tulot yhteenlaskettuna.
+     *
      * @return tulojen summan.
      */
     public Double tulotSumma() {
@@ -104,6 +90,7 @@ public class Budjetti {
     }
     /**
      * Palauttaa HashMapin jossa budjetin kentät ja arvot.
+     *
      * @return kaikki merkinnät ja arvot mappina.
      */
     public HashMap<String, Double> haeMap() {
@@ -111,6 +98,7 @@ public class Budjetti {
     }
     /**
      * Palauttaa budjetin nimen.
+     *
      * @return nimi.
      */
     public String budjetinNimi() {
@@ -118,6 +106,7 @@ public class Budjetti {
     }
     /**
      * Palauttaa budjetin tekijän.
+     *
      * @return tekijä.
      */
     public String budjetinTekija() {
@@ -125,6 +114,7 @@ public class Budjetti {
     }
     /**
      * Palauttaa budjetin luonti päivän.
+     *
      * @return luontipäivä.
      */
     public String budjetinLuontiPaiva() {
@@ -132,6 +122,7 @@ public class Budjetti {
     }
     /**
      * Palauttaa budjetin viimeisen muokkauspäivän.
+     *
      * @return viimeinen muokkauspäivä.
      */
     public String viimeinenMuokkausPaiva() {
@@ -140,11 +131,12 @@ public class Budjetti {
     /**
      * Saa käyttöjärjestelmältä parametrit, joiden pohjalta alustetaan
      * tiedostonkäsittelijä.
+     *
      * @param parametrit joko valmis tiedosto tai parametrit uuden tiedoston
      * luomiseen.
      * @throws java.lang.Exception kutsujan pitää tietää jos menee vikaan.
      */
-    public void valitseBudjetti(Object... parametrit) throws Exception { //Aion uudelleen nimetä tai siirtää toiseen luokkaan!
+    public void valitseBudjetti(Object... parametrit) throws Exception {
         if (parametrit.length == 1) {
             this.kasittelija = new TiedostonKasittelija((File) parametrit[0]);
         } else {
@@ -153,10 +145,11 @@ public class Budjetti {
     }
     /**
      * Avaa valitun budjetin tiedostonkäsittelijään.
+     *
      * @param salasana salasana budjetin avaamiseen.
      * @throws java.lang.Exception kutsujan pitää tietää jos menee vikaan.
      */
-    public void avaaBudjetti(String salasana) throws Exception { //Aion uudelleen nimetä tai siirtää toiseen luokkaan!
+    public void avaaBudjetti(String salasana) throws Exception {
         this.kasittelija.lueTiedosto(salasana);
         this.mappi = new HashMap<>(this.kasittelija.mappi);
         lajitteleMenoihinJaTuloihin(this.kasittelija.mappi);
@@ -164,6 +157,7 @@ public class Budjetti {
     }
     /**
      * Lajittelee päämapin arvot menoihin ja tuloihin.
+     *
      * @param map mappi jossa kaikki merkinnät ja arvot.
      */
     public void lajitteleMenoihinJaTuloihin(HashMap<String, Double> map) {
@@ -180,10 +174,11 @@ public class Budjetti {
     }
     /**
      * Kutsuu tiedostonKäsittelijää tallentamaan budjetin.
+     *
      * @param salasana salasana budjetin tallentamiseen.
      * @throws java.lang.Exception kutsujan pitää tietää jos menee vikaan.
      */
-    public void tallennaBudjetti(String salasana) throws Exception { //Aion uudelleen nimetä tai siirtää toiseen luokkaan!
+    public void tallennaBudjetti(String salasana) throws Exception {
         this.kasittelija.tallenna(salasana, this.mappi);
     }
     /**

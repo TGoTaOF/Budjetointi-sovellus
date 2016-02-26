@@ -4,7 +4,12 @@ Budjetointisovellus budjettien luontiin ja hallinnointiin.
 
 ## Dokumentaatio
 
-[aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
+[Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
 
-[tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
+[Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
 
+[Käyttöohjeet](dokumentaatio/käyttöohjeet.md)
+
+[pit-raportit](dokumentaatio/pit/)
+
+[Muu dokumentaatio](dokumentaatio/)
