@@ -6,9 +6,17 @@
 package fi.mxsampsa.ui;
 
 import fi.mxsampsa.budjetointisovellus.Budjetti;
+import java.awt.BorderLayout;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,9 +24,13 @@ import javax.swing.JOptionPane;
  */
 public class UIKehys extends javax.swing.JPanel {
 
-    private Budjetti budjetti;
-    private boolean onkoBudjettiAvattuna;
+    public Budjetti budjetti;
+    public boolean onkoBudjettiAvattuna;
     private VirheIlmoitus virheIlmoitus;
+    public boolean sattuikoVirhe;
+    public boolean keskeytetty;
+    private ArrayList<JButton> napitMenot;
+    private ArrayList<JButton> napitTulot;
 
     /**
      * Creates new form UIKehys
@@ -30,6 +42,8 @@ public class UIKehys extends javax.swing.JPanel {
         this.budjetti = parametriBudjetti;
         this.onkoBudjettiAvattuna = false;
         this.virheIlmoitus = new VirheIlmoitus(this);
+        this.sattuikoVirhe = false;
+        this.keskeytetty = false;
         paivitaKaikki();
     }
 
@@ -42,6 +56,7 @@ public class UIKehys extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane6 = new javax.swing.JScrollPane();
         uusiNappi = new javax.swing.JButton();
         avaaNappi = new javax.swing.JButton();
         tallennaNappi = new javax.swing.JButton();
@@ -52,15 +67,18 @@ public class UIKehys extends javax.swing.JPanel {
         menotYhteensaTeksti = new javax.swing.JLabel();
         saldoTeksti = new javax.swing.JLabel();
         menotKehys = new javax.swing.JPanel();
-        merkinta = new javax.swing.JTextField();
-        arvo = new javax.swing.JTextField();
-        lisaaNappi = new javax.swing.JButton();
-        PoistaNappi = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        menot = new javax.swing.JTable();
         tulotKehys = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tulot = new javax.swing.JTable();
         budjetinNimi = new javax.swing.JLabel();
         tekijanNimi = new javax.swing.JLabel();
         luontiPaivaTeksti = new javax.swing.JLabel();
         viimeksiMuokattuTeksti = new javax.swing.JLabel();
+        lisaaNappi = new javax.swing.JButton();
+        poistaMeno = new javax.swing.JButton();
+        poistaTulo = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(900, 700));
         setPreferredSize(new java.awt.Dimension(900, 700));
@@ -97,17 +115,45 @@ public class UIKehys extends javax.swing.JPanel {
 
         menotTeksti.setText("Menot");
 
+        tulotYhteensaTeksti.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tulotYhteensaTeksti.setForeground(new java.awt.Color(0, 210, 0));
         tulotYhteensaTeksti.setText("Tulot yhteensä: ");
 
+        menotYhteensaTeksti.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        menotYhteensaTeksti.setForeground(new java.awt.Color(255, 0, 0));
         menotYhteensaTeksti.setText("Menot yhteensä: ");
 
+        saldoTeksti.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         saldoTeksti.setText("Saldo: ");
 
         menotKehys.setPreferredSize(new java.awt.Dimension(260, 400));
 
-        lisaaNappi.setText("Lisää");
+        jScrollPane1.setToolTipText("");
 
-        PoistaNappi.setText("Poista");
+        menot.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Merkintä", "Arvo  (€)"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        menot.setColumnSelectionAllowed(true);
+        menot.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(menot);
+        menot.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (menot.getColumnModel().getColumnCount() > 0) {
+            menot.getColumnModel().getColumn(0).setResizable(false);
+            menot.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         javax.swing.GroupLayout menotKehysLayout = new javax.swing.GroupLayout(menotKehys);
         menotKehys.setLayout(menotKehysLayout);
@@ -115,40 +161,59 @@ public class UIKehys extends javax.swing.JPanel {
             menotKehysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menotKehysLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PoistaNappi, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(menotKehysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lisaaNappi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(menotKehysLayout.createSequentialGroup()
-                        .addComponent(merkinta, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(arvo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         menotKehysLayout.setVerticalGroup(
             menotKehysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menotKehysLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(menotKehysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(merkinta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(arvo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PoistaNappi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lisaaNappi)
-                .addContainerGap(337, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tulotKehys.setPreferredSize(new java.awt.Dimension(260, 400));
+
+        tulot.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Merkintä", "Arvo (€)"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tulot.setColumnSelectionAllowed(true);
+        tulot.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tulot);
+        tulot.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tulot.getColumnModel().getColumnCount() > 0) {
+            tulot.getColumnModel().getColumn(0).setResizable(false);
+            tulot.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         javax.swing.GroupLayout tulotKehysLayout = new javax.swing.GroupLayout(tulotKehys);
         tulotKehys.setLayout(tulotKehysLayout);
         tulotKehysLayout.setHorizontalGroup(
             tulotKehysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
+            .addGroup(tulotKehysLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                .addContainerGap())
         );
         tulotKehysLayout.setVerticalGroup(
             tulotKehysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(tulotKehysLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         budjetinNimi.setText("Budjetin nimi: -");
@@ -157,12 +222,52 @@ public class UIKehys extends javax.swing.JPanel {
 
         luontiPaivaTeksti.setText("Luonti päivä: -");
 
-        viimeksiMuokattuTeksti.setText("Viimeksi muokattu: -");
+        viimeksiMuokattuTeksti.setText("Viimeksi avattuna: -");
+
+        lisaaNappi.setText("Lisää");
+        lisaaNappi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lisaaNappiActionPerformed(evt);
+            }
+        });
+
+        poistaMeno.setText("Poista valittu meno");
+        poistaMeno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                poistaMenoActionPerformed(evt);
+            }
+        });
+
+        poistaTulo.setText("Poista valittu tulo");
+        poistaTulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                poistaTuloActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(tulotTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(poistaTulo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tekijanNimi, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(budjetinNimi, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(119, 119, 119)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(luontiPaivaTeksti)
+                    .addComponent(viimeksiMuokattuTeksti)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(menotTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(poistaMeno, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(247, 247, 247))
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,36 +280,23 @@ public class UIKehys extends javax.swing.JPanel {
                         .addGap(186, 186, 186)
                         .addComponent(suljeNappi)
                         .addGap(35, 35, 35))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(budjetinNimi, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tekijanNimi, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(tulotTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(255, 255, 255)
-                                        .addComponent(menotTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(361, 361, 361)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(menotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(luontiPaivaTeksti)
-                                    .addComponent(viimeksiMuokattuTeksti))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(116, 116, 116))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(tulotYhteensaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saldoTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tulotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(tulotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(86, 86, 86)
-                                .addComponent(menotYhteensaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tulotYhteensaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(saldoTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138))))
+                                .addComponent(menotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addComponent(lisaaNappi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(menotYhteensaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,18 +317,27 @@ public class UIKehys extends javax.swing.JPanel {
                     .addComponent(tekijanNimi))
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tulotTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(menotTeksti))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(menotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tulotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tulotTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(poistaTulo))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(menotTeksti)
+                        .addComponent(poistaMeno)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(menotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tulotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(lisaaNappi)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tulotYhteensaTeksti)
-                    .addComponent(menotYhteensaTeksti)
-                    .addComponent(saldoTeksti))
-                .addContainerGap(88, Short.MAX_VALUE))
+                    .addComponent(tulotYhteensaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menotYhteensaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saldoTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -255,9 +356,14 @@ public class UIKehys extends javax.swing.JPanel {
                     JOptionPane.PLAIN_MESSAGE,
                     null, null, "");
             if (!this.virheIlmoitus.virheellinenSyote(s)) {
-                this.budjetti.valitseBudjetti(s, s2);
-                this.budjetti.avaaBudjetti("-");
-                this.onkoBudjettiAvattuna = true;
+                try {
+                    this.budjetti.valitseBudjetti(s, s2);
+                    this.budjetti.avaaBudjetti("-");
+                    luoNapit();
+                    this.onkoBudjettiAvattuna = true;
+                } catch (Exception e) {
+                    this.virheIlmoitus.uudenBudjetinLuominenEpaonnistui();
+                }
             }
         }
         paivitaKaikki();
@@ -269,11 +375,14 @@ public class UIKehys extends javax.swing.JPanel {
         valitsija.setCurrentDirectory(sovelluskansio);
         if (valitsija.showOpenDialog(valitsija) == JFileChooser.APPROVE_OPTION) {
             File tiedosto = valitsija.getSelectedFile();
-            this.budjetti.valitseBudjetti(tiedosto);
-            this.budjetti.avaaBudjetti("-");
-            this.onkoBudjettiAvattuna = true;
+            try {
+                this.budjetti.valitseBudjetti(tiedosto);
+                salasananKysynta("avaa");
+            } catch (Exception e) {
+                this.virheIlmoitus.budjetinAvaaminenEpaonnistui();
+            }
         }
-        
+        luoNapit();
         paivitaKaikki();
     }//GEN-LAST:event_avaaNappiActionPerformed
 
@@ -288,6 +397,7 @@ public class UIKehys extends javax.swing.JPanel {
         }
         this.budjetti.suljeBudjetti();
         this.onkoBudjettiAvattuna = false;
+        luoNapit();
         paivitaKaikki();
     }//GEN-LAST:event_suljeNappiActionPerformed
 
@@ -296,31 +406,111 @@ public class UIKehys extends javax.swing.JPanel {
                 this,
                 "Tallennetaanko uudella salasanalla?",
                 "Tallenna",
-                JOptionPane.YES_NO_OPTION); 
-        if (n == 0) {
-            salasananKysynta();
+                JOptionPane.YES_NO_OPTION);
+        try {
+            if (n == 0) {
+                salasananKysynta("tallenna");
+            } else {
+                this.budjetti.tallennaBudjetti("-");
+            }
+        } catch (Exception e) {
+            this.virheIlmoitus.budjetinTallentaminenEpaonnistui();
         }
         paivitaKaikki();
     }//GEN-LAST:event_tallennaNappiActionPerformed
 
+    private void lisaaNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lisaaNappiActionPerformed
+        String s = (String) JOptionPane.showInputDialog(
+                this,
+                "Merkinnän nimi:",
+                "Uusi merkintä",
+                JOptionPane.PLAIN_MESSAGE,
+                null, null, "");
+        if (s != null && !s.isEmpty() && !this.budjetti.haeMap().keySet().contains(s)) {
+            String s2 = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Anna merkinnän arvo:",
+                    "Uusi merkintä",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null, null, "");
+            try {
+                double luku = Double.parseDouble(s2);
+                this.budjetti.lisaaArvo(s, luku);
+            } catch (NumberFormatException e) {
+                this.virheIlmoitus.syoteEiLuku();
+            }
+        }
+        paivitaKaikki();
+    }//GEN-LAST:event_lisaaNappiActionPerformed
+
+    private void poistaMenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poistaMenoActionPerformed
+        DefaultTableModel model = (DefaultTableModel) menot.getModel();
+        this.budjetti.poistaKentta((String) menot.getValueAt(menot.getSelectedRow(), 0));
+        model.removeRow(menot.getSelectedRow());
+        paivitaKaikki();
+    }//GEN-LAST:event_poistaMenoActionPerformed
+
+    private void poistaTuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poistaTuloActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tulot.getModel();
+        this.budjetti.poistaKentta((String) tulot.getValueAt(tulot.getSelectedRow(), 0));
+        model.removeRow(tulot.getSelectedRow());
+        paivitaKaikki();
+    }//GEN-LAST:event_poistaTuloActionPerformed
+
     public void paivitaKaikki() {
-        menotYhteensaTeksti.setText("Menot Yhteensä: " + this.budjetti.menotSumma());
-        tulotYhteensaTeksti.setText("Tulot Yhteensä: " + this.budjetti.tulotSumma());
-        saldoTeksti.setText("Saldo: " + this.budjetti.summa());
         if (this.onkoBudjettiAvattuna == true) {
+            menotYhteensaTeksti.setText("Menot Yhteensä: " + this.budjetti.menotSumma() + " €");
+            tulotYhteensaTeksti.setText("Tulot Yhteensä: " + this.budjetti.tulotSumma() + " €");
+            saldoTeksti.setText("Saldo: " + this.budjetti.summa() + " €");
             avaaNappi.setEnabled(false);
             uusiNappi.setEnabled(false);
             tallennaNappi.setEnabled(true);
             suljeNappi.setEnabled(true);
+            lisaaNappi.setEnabled(true);
+            poistaTulo.setEnabled(true);
             budjetinNimi.setText("Budjetin nimi: " + this.budjetti.budjetinNimi());
             tekijanNimi.setText("Tekijä: " + this.budjetti.budjetinTekija());
             luontiPaivaTeksti.setText("Luonti päivä: " + this.budjetti.budjetinLuontiPaiva());
             viimeksiMuokattuTeksti.setText("Viimeksi muokattu: " + this.budjetti.viimeinenMuokkausPaiva());
+            if (!this.budjetti.menot.isEmpty()) {
+                ((DefaultTableModel) menot.getModel()).setRowCount(0);
+                ArrayList<String> merkinnat = new ArrayList<>(this.budjetti.menot.keySet());
+                ArrayList<Double> arvot = new ArrayList<>(this.budjetti.menot.values());
+                DefaultTableModel model = (DefaultTableModel) menot.getModel();
+                for (int i = 0; i < merkinnat.size(); i++) {
+                    model.addRow(new Object[]{merkinnat.get(i), arvot.get(i)});
+                }
+            }
+            if (!this.budjetti.tulot.isEmpty()) {
+                ((DefaultTableModel) tulot.getModel()).setRowCount(0);
+                ArrayList<String> merkinnat = new ArrayList<>(this.budjetti.tulot.keySet());
+                ArrayList<Double> arvot = new ArrayList<>(this.budjetti.tulot.values());
+                DefaultTableModel model = (DefaultTableModel) tulot.getModel();
+                for (int i = 0; i < merkinnat.size(); i++) {
+                    model.addRow(new Object[]{merkinnat.get(i), arvot.get(i)});
+                }
+            }
+            if (((DefaultTableModel) menot.getModel()).getRowCount() == 0) {
+                poistaMeno.setEnabled(false);
+            } else {
+                poistaMeno.setEnabled(true);
+            }
+            if (((DefaultTableModel) tulot.getModel()).getRowCount() == 0) {
+                poistaTulo.setEnabled(false);
+            } else {
+                poistaTulo.setEnabled(true);
+            }
         } else {
+            menotYhteensaTeksti.setText("Menot Yhteensä: -");
+            tulotYhteensaTeksti.setText("Tulot Yhteensä: -");
+            saldoTeksti.setText("Saldo: -");
             avaaNappi.setEnabled(true);
             uusiNappi.setEnabled(true);
             tallennaNappi.setEnabled(false);
             suljeNappi.setEnabled(false);
+            lisaaNappi.setEnabled(false);
+            poistaMeno.setEnabled(false);
+            poistaTulo.setEnabled(false);
             budjetinNimi.setText("Budjetin nimi: -");
             tekijanNimi.setText("Tekijä: -");
             luontiPaivaTeksti.setText("Luonti päivä: -");
@@ -328,32 +518,59 @@ public class UIKehys extends javax.swing.JPanel {
         }
     }
 
-    public boolean salasananKysynta() {
+    public boolean salasananKysynta(String komento) {
         try {
-            SalausUIKehys kehys = new SalausUIKehys(this.budjetti);
-            kehys.setVisible(true);
-            //May need run();
+            if (komento.equals("avaa")) {
+                this.budjetti.avaaBudjetti("-");
+                this.onkoBudjettiAvattuna = true;
+            } else {
+                throw new Exception();
+            }
             return true;
         } catch (Exception e) {
-            return this.virheIlmoitus.virheSalasanaaKysyttaessa();
+            try {
+                SalausUI kehys = new SalausUI(new javax.swing.JFrame(), true, this.budjetti, komento, this);
+                kehys.setVisible(true);
+                if (!this.sattuikoVirhe && !this.keskeytetty) {
+                    this.onkoBudjettiAvattuna = true;
+                    return true;
+                } else if (this.keskeytetty) {
+                    this.keskeytetty = false;
+                    return true;
+                } else {
+                    this.sattuikoVirhe = false;
+                    return this.virheIlmoitus.virheSalasanaaKysyttaessa();
+                }
+            } catch (Exception e2) {
+                return this.virheIlmoitus.virheSalasanaaKysyttaessa();
+            }
         }
+    }
+    
+    public void luoNapit() {
+        this.napitMenot = new ArrayList<>();
+        this.napitTulot = new ArrayList<>();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton PoistaNappi;
-    private javax.swing.JTextField arvo;
     private javax.swing.JButton avaaNappi;
     private javax.swing.JLabel budjetinNimi;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JButton lisaaNappi;
     private javax.swing.JLabel luontiPaivaTeksti;
+    private javax.swing.JTable menot;
     private javax.swing.JPanel menotKehys;
     private javax.swing.JLabel menotTeksti;
     private javax.swing.JLabel menotYhteensaTeksti;
-    private javax.swing.JTextField merkinta;
+    private javax.swing.JButton poistaMeno;
+    private javax.swing.JButton poistaTulo;
     private javax.swing.JLabel saldoTeksti;
     private javax.swing.JButton suljeNappi;
     private javax.swing.JButton tallennaNappi;
     private javax.swing.JLabel tekijanNimi;
+    private javax.swing.JTable tulot;
     private javax.swing.JPanel tulotKehys;
     private javax.swing.JLabel tulotTeksti;
     private javax.swing.JLabel tulotYhteensaTeksti;

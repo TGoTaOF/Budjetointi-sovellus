@@ -21,7 +21,7 @@ public class TiedostonKasittelija {
     private String luontiPaiva;
     private String salaus;
     private Salaus salaaja;
-    public HashMap<String, Integer> mappi;
+    public HashMap<String, Double> mappi;
     /**
      * Alustus olemassa olevan budjetin avaamiseen.
      * @param tiedosto alustusta varten.
@@ -33,8 +33,9 @@ public class TiedostonKasittelija {
      * Alustus uuden budjetin luomiseen.
      * @param budjetinNimi budjetin nimi.
      * @param tekija tekijän nimi.
+     * @throws java.lang.Exception luokan kutsujan tulee tietää jos jotain menee vikaan.
      */
-    public TiedostonKasittelija(String budjetinNimi, String tekija) { 
+    public TiedostonKasittelija(String budjetinNimi, String tekija) throws Exception { 
         try {
             if (System.getProperty("os.name").startsWith("Windows") && !budjetinNimi.isEmpty()) {
                 budjetinNimi += ".txt";
@@ -45,16 +46,16 @@ public class TiedostonKasittelija {
                 kirjoittaja.write(tekija + "\n" + LocalDate.now() + "\n" + viimeksiMuokattu() + "\n-");
             }
         } catch (IOException e) {
-            System.out.println("Ei voitu luoda uutta tiedostoa!");
+            throw e;
         }
     }
     /**
      * Lukee tiedoston HashMap muotoon salauksen mahdollisen tarkistuksen ja purkamisen jälkeen.
      * @param salasana salasana salauksen purkua varten.
-     * @return error/toimii
+     * @throws java.lang.Exception metodin kutsujan tulee tietää jos jotain menee vikaan.
      */
-    public String lueTiedosto(String salasana) { 
-        this.mappi = new HashMap<String, Integer>();
+    public void lueTiedosto(String salasana) throws Exception { 
+        this.mappi = new HashMap<>();
         try {
             String tarkistettava = lukemisenValmistelu(salasana);
             try (Scanner lukija = new Scanner(tarkistettava)) {
@@ -64,12 +65,11 @@ public class TiedostonKasittelija {
                 lukija.nextLine();
                 while (lukija.hasNextLine()) {
                     String[] osat = lukija.nextLine().split(":");
-                    this.mappi.put(osat[0], Integer.parseInt(osat[1]));
+                    this.mappi.put(osat[0], Double.parseDouble(osat[1]));
                 }
             }
-            return "onnistui";
         } catch (Exception e) {
-            return "Jotain meni vikaan :/";
+            throw e;
         }
     }
     /**
@@ -172,9 +172,10 @@ public class TiedostonKasittelija {
      * Jos salasana "-" ei salata.
      * @param salasana salausta varten
      * @param map mappi budjetin kentistä ja arvoista
+     * @throws java.lang.Exception metodin kutsujan tulee tietää jos jotain menee vikaan.
      */
-    public void tallenna(String salasana, HashMap<String, Integer> map) {
-        this.mappi = map;
+    public void tallenna(String salasana, HashMap<String, Double> map) throws Exception {
+        this.mappi = new HashMap<>(map);
         String tallennettava = palautaTekstina();
         if (!this.salaus.equals("-") || !this.salaus.equals(salasana)) {
             try {
@@ -182,7 +183,7 @@ public class TiedostonKasittelija {
                 this.salaus = salasana;
                 tallennettava = this.salaaja.salaa(palautaTekstina());
             } catch (Exception e) {
-                System.out.println("Salaus salasanalla ei onnistunut");
+                throw e;
             }
         }
         try {
@@ -190,7 +191,7 @@ public class TiedostonKasittelija {
             kirjoittaja.write(tallennettava);
             kirjoittaja.close();
         } catch (IOException e) {
-            System.out.println("Ei voitu tallentaa");
+            throw e;
         }
     }
 }

@@ -48,15 +48,71 @@ public class VirheIlmoitus {
     }
     
     /**
-     * ilmoittaa mikäli tapahtui virhe salasanaa kysyvässä guissa.
+     * Ilmoittaa mikäli tapahtui virhe salasanaa kysyvässä guissa.
      * <p>
      * metodia kutsutaan vain poikkeuksen tapahtuessa.
-     * @return palauttaa aina true.s
+     * @return palauttaa aina true.
      */
     public boolean virheSalasanaaKysyttaessa() {
         JOptionPane.showMessageDialog(this.kehys,
+                "Jotain meni vikaan! :/\nOliko oikea salasana?",
                 "Jotain meni vikaan!",
-                "Jotain meni vikaan :/",
+                JOptionPane.WARNING_MESSAGE);
+        return true;
+    }
+    
+    /**
+     * Ilmoittaa mikäli käyttäjän syöte ei ollut luku.
+     * <p>
+     * metodia kutsutaan vain poikkeuksen tapahtuessa.
+     * @return /palauttaa aina true.
+     */
+    public boolean syoteEiLuku() {
+        JOptionPane.showMessageDialog(this.kehys,
+                "Ei syötetty lukua!",
+                "Ei syötetty lukua!",
+                JOptionPane.WARNING_MESSAGE);
+        return true;
+    }
+    
+    /**
+     * Ilmoittaa mikäli uuden budjetin luominen ei onnistunut.
+     * <p>
+     * metodia kutsutaan vain poikkeuksen tapahtuessa.
+     * @return /palauttaa aina true.
+     */
+    public boolean uudenBudjetinLuominenEpaonnistui() {
+        JOptionPane.showMessageDialog(this.kehys,
+                "Jotain meni vikaan uutta budjettia luodessa! :/",
+                "Virhe havaittiin!",
+                JOptionPane.WARNING_MESSAGE);
+        return true;
+    }
+    
+    /**
+     * Ilmoittaa mikäli budjetin tallentaminen ei onnistunut.
+     * <p>
+     * metodia kutsutaan vain poikkeuksen tapahtuessa.
+     * @return /palauttaa aina true.
+     */
+    public boolean budjetinTallentaminenEpaonnistui() {
+        JOptionPane.showMessageDialog(this.kehys,
+                "Jotain meni vikaan budjettia tallennettaessa! :/",
+                "Virhe havaittiin!",
+                JOptionPane.WARNING_MESSAGE);
+        return true;
+    }
+    
+    /**
+     * Ilmoittaa jos olemassa olevan budjetin avaus ei onnistunut.
+     * <p>
+     * metodia kutsutaan vain poikkeuksen tapahtuessa.
+     * @return /palauttaa aina true.
+     */
+    public boolean budjetinAvaaminenEpaonnistui() {
+        JOptionPane.showMessageDialog(this.kehys,
+                "Jotain meni vikaan olemassa olevaa budjettia avattaessa! :/",
+                "Virhe havaittiin!",
                 JOptionPane.WARNING_MESSAGE);
         return true;
     }

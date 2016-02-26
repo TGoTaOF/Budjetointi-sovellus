@@ -7,22 +7,25 @@
 package fi.mxsampsa.ui;
 
 import fi.mxsampsa.budjetointisovellus.Budjetti;
-import javax.swing.JPanel;
 
 /**
  *
  * @author Sampsa
  */
-public class SalausUIKehys extends javax.swing.JFrame {
+public class SalausUI extends javax.swing.JDialog {
 
     private Budjetti budjetti;
+    private String komento;
+    private UIKehys kutsuja;
     /**
-     * Creates new form salasanaUIKehys
+     * Creates new form SalausUI
      */
-    public SalausUIKehys(Budjetti parametriBudjetti) {
+    public SalausUI(java.awt.Frame parent, boolean modal, Budjetti parametriBudjetti, String s, UIKehys kutsuja) {
+        super(parent, modal);
         initComponents();
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         this.budjetti = parametriBudjetti;
+        this.komento = s;
+        this.kutsuja = kutsuja;
         paivita();
     }
 
@@ -35,7 +38,6 @@ public class SalausUIKehys extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        kehys = new javax.swing.JPanel();
         napitKehys = new javax.swing.JPanel();
         Nappi1 = new javax.swing.JButton();
         Nappi2 = new javax.swing.JButton();
@@ -54,14 +56,9 @@ public class SalausUIKehys extends javax.swing.JFrame {
         salasana = new javax.swing.JLabel();
         salasanaTeksti = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Salasana");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(300, 450));
-        setName("salasana"); // NOI18N
-        getContentPane().setLayout(new java.awt.FlowLayout());
-
-        kehys.setMaximumSize(new java.awt.Dimension(271, 393));
-        kehys.setMinimumSize(new java.awt.Dimension(271, 393));
+        setPreferredSize(new java.awt.Dimension(300, 450));
 
         Nappi1.setText("1");
         Nappi1.addActionListener(new java.awt.event.ActionListener() {
@@ -241,60 +238,32 @@ public class SalausUIKehys extends javax.swing.JFrame {
         salasanaTeksti.setText("4-numeroinen salasana:");
         salasanaTeksti.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout kehysLayout = new javax.swing.GroupLayout(kehys);
-        kehys.setLayout(kehysLayout);
-        kehysLayout.setHorizontalGroup(
-            kehysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kehysLayout.createSequentialGroup()
-                .addGroup(kehysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kehysLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(kehysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lisaKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(napitKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(kehysLayout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(salasanaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lisaKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(napitKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(salasanaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))))
         );
-        kehysLayout.setVerticalGroup(
-            kehysLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(kehysLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(salasanaTeksti)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(napitKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lisaKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(lisaKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        getContentPane().add(kehys);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void Nappi6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nappi6ActionPerformed
-        if (salasanaOnViiva()) {
-            salasana.setText("6");
-        } else if (!salasananPituusNelja()) {
-            salasana.setText(salasana.getText() + "6");
-        }
-        paivita();
-    }//GEN-LAST:event_Nappi6ActionPerformed
-
-    private void Nappi8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nappi8ActionPerformed
-        if (salasanaOnViiva()) {
-            salasana.setText("8");
-        } else if (!salasananPituusNelja()) {
-            salasana.setText(salasana.getText() + "8");
-        }
-        paivita();
-    }//GEN-LAST:event_Nappi8ActionPerformed
-
-    private void nappiPeruutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nappiPeruutaActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_nappiPeruutaActionPerformed
 
     private void Nappi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nappi1ActionPerformed
         if (salasanaOnViiva()) {
@@ -341,6 +310,15 @@ public class SalausUIKehys extends javax.swing.JFrame {
         paivita();
     }//GEN-LAST:event_Nappi5ActionPerformed
 
+    private void Nappi6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nappi6ActionPerformed
+        if (salasanaOnViiva()) {
+            salasana.setText("6");
+        } else if (!salasananPituusNelja()) {
+            salasana.setText(salasana.getText() + "6");
+        }
+        paivita();
+    }//GEN-LAST:event_Nappi6ActionPerformed
+
     private void Nappi7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nappi7ActionPerformed
         if (salasanaOnViiva()) {
             salasana.setText("7");
@@ -349,6 +327,15 @@ public class SalausUIKehys extends javax.swing.JFrame {
         }
         paivita();
     }//GEN-LAST:event_Nappi7ActionPerformed
+
+    private void Nappi8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nappi8ActionPerformed
+        if (salasanaOnViiva()) {
+            salasana.setText("8");
+        } else if (!salasananPituusNelja()) {
+            salasana.setText(salasana.getText() + "8");
+        }
+        paivita();
+    }//GEN-LAST:event_Nappi8ActionPerformed
 
     private void Nappi9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nappi9ActionPerformed
         if (salasanaOnViiva()) {
@@ -369,7 +356,7 @@ public class SalausUIKehys extends javax.swing.JFrame {
     }//GEN-LAST:event_Nappi0ActionPerformed
 
     private void NappiTakaisinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NappiTakaisinActionPerformed
-         if (this.salasana.getText().equals("-")) {
+        if (this.salasana.getText().equals("-")) {
         } else if (this.salasana.getText().length() > 1) {
             String apu = "";
             for (int i = 0; i < this.salasana.getText().length()-1; i++) {
@@ -379,14 +366,30 @@ public class SalausUIKehys extends javax.swing.JFrame {
         } else {
             this.salasana.setText("-");
         }
-         paivita();
+        paivita();
     }//GEN-LAST:event_NappiTakaisinActionPerformed
 
     private void nappiOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nappiOKActionPerformed
-        this.budjetti.tallennaBudjetti(this.salasana.getText());
-        this.dispose();
-        
+        try {
+            switch (this.komento) {
+                case "tallenna":
+                this.budjetti.tallennaBudjetti(this.salasana.getText());
+                break;
+                case "avaa":
+                this.budjetti.avaaBudjetti(this.salasana.getText());
+                break;
+            }
+        } catch (Exception e) { 
+            this.kutsuja.sattuikoVirhe = true;
+        } finally {
+            this.dispose();
+        }
     }//GEN-LAST:event_nappiOKActionPerformed
+
+    private void nappiPeruutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nappiPeruutaActionPerformed
+        this.kutsuja.keskeytetty = true;
+        this.dispose();
+    }//GEN-LAST:event_nappiPeruutaActionPerformed
 
     public void paivita() {
         if (salasananPituusNelja()) {
@@ -397,19 +400,20 @@ public class SalausUIKehys extends javax.swing.JFrame {
     }
     
     public boolean salasananPituusNelja() {
-        if (this.salasana.getText().length() < 4) {
-            return false;
-        }
-        return true;
+        return this.salasana.getText().length() >= 4;
     }
     
     public boolean salasanaOnViiva() {
-        if (this.salasana.getText().equals("-")) {
-            return true;
-        }
-        return false;
+        return this.salasana.getText().equals("-");
     }
     
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Nappi0;
     private javax.swing.JButton Nappi1;
@@ -422,7 +426,6 @@ public class SalausUIKehys extends javax.swing.JFrame {
     private javax.swing.JButton Nappi8;
     private javax.swing.JButton Nappi9;
     private javax.swing.JButton NappiTakaisin;
-    private javax.swing.JPanel kehys;
     private javax.swing.JPanel lisaKehys;
     private javax.swing.JPanel napitKehys;
     private javax.swing.JButton nappiOK;

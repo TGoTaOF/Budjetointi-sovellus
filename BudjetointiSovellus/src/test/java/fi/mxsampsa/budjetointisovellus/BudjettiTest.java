@@ -43,64 +43,64 @@ public class BudjettiTest {
 
     @Test
     public void LisaaArvoToimii() {
-        budjetti.lisaaArvo("testi", 2);
+        budjetti.lisaaArvo("testi", 2.0);
         assertEquals(true, budjetti.haeMap().toString().contains("testi"));
     }
 
     @Test
     public void haeArvoToimii() {
-        budjetti.lisaaArvo("testi", 2);
-        assertEquals(2, budjetti.haeArvo("testi"));
+        budjetti.lisaaArvo("testi", 2.0);
+        assertEquals(true, Math.abs(2.0 - budjetti.haeArvo("testi")) == 0.0);
     }
 
     @Test
     public void muokkaaArvoaToimii() {
-        budjetti.lisaaArvo("testi", 2);
-        budjetti.muokkaaArvoa("testi", 5);
-        assertEquals(5, budjetti.haeArvo("testi"));
+        budjetti.lisaaArvo("testi", 2.0);
+        budjetti.muokkaaArvoa("testi", 5.0);
+        assertEquals(true, Math.abs(5.0 - budjetti.haeArvo("testi")) == 0.0);
     }
 
     @Test
     public void poistaKenttaToimii() {
-        budjetti.lisaaArvo("testi", 2);
+        budjetti.lisaaArvo("testi", 2.0);
         budjetti.poistaKentta("testi");
         assertEquals(false, budjetti.haeMap().toString().contains("testi"));
     }
 
     @Test
     public void summaToimii() {
-        budjetti.lisaaArvo("testi1", 2);
-        budjetti.lisaaArvo("testi2", 3);
-        budjetti.lisaaArvo("testi3", 7);
-        budjetti.lisaaArvo("testi4", 5);
-        assertEquals(17, budjetti.summa());
+        budjetti.lisaaArvo("testi1", 2.0);
+        budjetti.lisaaArvo("testi2", 3.0);
+        budjetti.lisaaArvo("testi3", 7.0);
+        budjetti.lisaaArvo("testi4", 5.0);
+        assertEquals(true, Math.abs(17.0 - budjetti.summa()) == 0.0);
     }
 
     @Test
     public void summaToimiiNegatiivisillakin() {
-        budjetti.lisaaArvo("testi1", 2);
-        budjetti.lisaaArvo("testi2", -3);
-        budjetti.lisaaArvo("testi3", 7);
-        budjetti.lisaaArvo("testi4", -5);
-        assertEquals(1, budjetti.summa());
+        budjetti.lisaaArvo("testi1", 2.0);
+        budjetti.lisaaArvo("testi2", -3.0);
+        budjetti.lisaaArvo("testi3", 7.0);
+        budjetti.lisaaArvo("testi4", -5.0);
+        assertEquals(true, Math.abs(1.0 - budjetti.summa()) == 0.0);
     }
 
     @Test
     public void menotSummaToimii() {
-        budjetti.lisaaArvo("testi1", 2);
-        budjetti.lisaaArvo("testi2", -3);
-        budjetti.lisaaArvo("testi3", 7);
-        budjetti.lisaaArvo("testi4", 5);
-        assertEquals(-3, budjetti.menotSumma());
+        budjetti.lisaaArvo("testi1", 2.0);
+        budjetti.lisaaArvo("testi2", -3.0);
+        budjetti.lisaaArvo("testi3", 7.0);
+        budjetti.lisaaArvo("testi4", 5.0);
+        assertEquals(true, Math.abs(-3.0 - budjetti.menotSumma()) == 0.0);
     }
 
     @Test
     public void tulotSummaToimii() {
-        budjetti.lisaaArvo("testi1", 2);
-        budjetti.lisaaArvo("testi2", 3);
-        budjetti.lisaaArvo("testi3", -7);
-        budjetti.lisaaArvo("testi4", 5);
-        assertEquals(10, budjetti.tulotSumma());
+        budjetti.lisaaArvo("testi1", 2.0);
+        budjetti.lisaaArvo("testi2", 3.0);
+        budjetti.lisaaArvo("testi3", -7.0);
+        budjetti.lisaaArvo("testi4", 5.0);
+        assertEquals(true, Math.abs(10.0 - budjetti.tulotSumma()) == 0.0);
     }
 
     @Test
@@ -156,10 +156,14 @@ public class BudjettiTest {
 
     @Test
     public void haeToiminnotToimii() {
-        budjetti.valitseBudjetti("test", "testaaja");
-        budjetti.avaaBudjetti("-");
-        assertEquals(true, budjetti.budjetinNimi().contains("test"));
-        assertEquals("testaaja", budjetti.budjetinTekija());
-        assertEquals((String) LocalDate.now().toString(), (String) budjetti.budjetinLuontiPaiva());
+        try {
+            budjetti.valitseBudjetti("test", "testaaja");
+            budjetti.avaaBudjetti("-");
+            assertEquals(true, budjetti.budjetinNimi().contains("test"));
+            assertEquals("testaaja", budjetti.budjetinTekija());
+            assertEquals((String) LocalDate.now().toString(), (String) budjetti.budjetinLuontiPaiva());
+        } catch (Exception e) {
+            assertEquals(true, false);
+        }
     }
 }

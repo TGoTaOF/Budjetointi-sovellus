@@ -25,6 +25,7 @@ public class Salaus {
     private Cipher ecipher;
     private Cipher dcipher;
     private SecretKey key;
+    private String salasana;
     
     /**
      * Salaus luokan alustus annetulla salasanalla
@@ -38,6 +39,7 @@ public class Salaus {
      * @throws java.lang.Exception heitetään jotta kutsuva metodi ei jatka omaa suoritustaan.
      */
     public Salaus(String salasana) throws Exception { 
+        this.salasana = salasana;
         if (salasana.length() < 16) {
             String numeroita = "1234567891234567"; 
             int apu = salasana.length();
@@ -82,7 +84,12 @@ public class Salaus {
         try {
             byte[] dec = new sun.misc.BASE64Decoder().decodeBuffer(tiedosto);
             byte[] utf8 = dcipher.doFinal(dec);
-            return new String(utf8, "UTF-8");
+            String palautus = new String(utf8, "UTF-8");
+            if (palautus.contains(this.salasana)) {
+                return palautus;
+            } else {
+                throw new Exception();
+            }
         } catch (IOException | BadPaddingException | IllegalBlockSizeException e) {
             throw e;
         }

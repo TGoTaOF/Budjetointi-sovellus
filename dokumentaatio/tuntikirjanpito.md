@@ -11,3 +11,5 @@
 18.02.2016 aikaa käytetty: n. 3h Käyttöliittymää yksinkertaistetty. javan omilla generoinneilla. Budjetti luokkaa laajennettu.
 
 19.02.2016 aikaa käytetty: n. 7h Deadline 5:n checkstylet yms. Koodia saatettu eteenpäin + testejä.
+
+25.02.2016 aikaa Käytetty: n. 7h Käyttöjärjestelmän virittelyä ja parantelua.
