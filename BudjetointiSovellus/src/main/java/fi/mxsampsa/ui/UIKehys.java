@@ -444,6 +444,10 @@ public class UIKehys extends javax.swing.JPanel {
     }//GEN-LAST:event_lisaaNappiActionPerformed
 
     private void poistaMenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poistaMenoActionPerformed
+        if (menot.getSelectedRow() == -1) {
+            this.virheIlmoitus.eiRiviaValittuna();
+            return;
+        }
         DefaultTableModel model = (DefaultTableModel) menot.getModel();
         this.budjetti.poistaKentta((String) menot.getValueAt(menot.getSelectedRow(), 0));
         model.removeRow(menot.getSelectedRow());
@@ -451,6 +455,10 @@ public class UIKehys extends javax.swing.JPanel {
     }//GEN-LAST:event_poistaMenoActionPerformed
 
     private void poistaTuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_poistaTuloActionPerformed
+        if (tulot.getSelectedRow() == -1) {
+            this.virheIlmoitus.eiRiviaValittuna();
+            return;
+        }
         DefaultTableModel model = (DefaultTableModel) tulot.getModel();
         this.budjetti.poistaKentta((String) tulot.getValueAt(tulot.getSelectedRow(), 0));
         model.removeRow(tulot.getSelectedRow());

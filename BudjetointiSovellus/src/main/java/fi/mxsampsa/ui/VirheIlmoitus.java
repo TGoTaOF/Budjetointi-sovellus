@@ -116,4 +116,11 @@ public class VirheIlmoitus {
                 JOptionPane.WARNING_MESSAGE);
         return true;
     }
+    
+    public void eiRiviaValittuna() {
+        JOptionPane.showMessageDialog(this.kehys,
+                "Valitse rivi ennen poistoa.",
+                "Valitse rivi!",
+                JOptionPane.WARNING_MESSAGE);
+    }
 }
