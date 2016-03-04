@@ -18,7 +18,7 @@ Olemassa olevan budjetin avaamiseksi paina "Avaa"-nappia. Pop-up pyytää valits
 
 **Merkinnän lisääminen**
 
-Lisätäksesi merkinnän paina "Lisää"-nappi. Ohjelma avaa pop-upin joka kysyy merkinnän nimeä. Syötettyäsi nimen aukeaa pop-up joka kysyy merkinnän arvon. Merkinnäksi ja arvoksi kelpaa kirjaimista a-ö ja numeroist 0-9 koostuva merkkijono. Uusi merkintä-arvo pari lisätään budjettiin ja tulee näkyviin arvon mukaan: jos arvo negatiivinen merkintä näkyy menoissa ja jos arvo positiivinen näkyy se tuloissa.
+Kirjoita ensin "Uusi merkintä"- kenttään uuden budjetti merkinnän nimi. Seuraavaksi "Uuden merkinnän arvo"-kenttään arvo merkinnälle. Sitten paina "Lisää". Merkinnäksi ja arvoksi kelpaa kirjaimista a-ö ja numeroist 0-9 koostuva merkkijono ja ohjelma ilmoittaa mikäli syötteissä on puutteitä tai ne ovat epäkelpoja. Uusi kelpuutettu merkintä-arvo pari lisätään budjettiin ja tulee näkyviin arvon mukaan: jos arvo negatiivinen merkintä näkyy menoissa ja jos arvo positiivinen näkyy se tuloissa.
 
 **Merkinnän poistaminen**
 

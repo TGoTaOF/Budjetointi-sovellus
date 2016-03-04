@@ -79,6 +79,10 @@ public class UIKehys extends javax.swing.JPanel {
         lisaaNappi = new javax.swing.JButton();
         poistaMeno = new javax.swing.JButton();
         poistaTulo = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        uusiMerkinta = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        uusiArvo = new javax.swing.JTextField();
 
         setMinimumSize(new java.awt.Dimension(900, 700));
         setPreferredSize(new java.awt.Dimension(900, 700));
@@ -245,6 +249,16 @@ public class UIKehys extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("Uusi merkintä:");
+
+        jLabel2.setText("Uuden merkinnän arvo:");
+
+        uusiArvo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uusiArvoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -291,11 +305,14 @@ public class UIKehys extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(menotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(8, 8, 8)
-                                .addComponent(lisaaNappi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(menotYhteensaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(uusiMerkinta, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(uusiArvo)
+                                    .addComponent(lisaaNappi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(menotYhteensaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -323,16 +340,24 @@ public class UIKehys extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(menotTeksti)
                         .addComponent(poistaMeno)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(menotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tulotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(lisaaNappi)))
-                .addGap(18, 18, 18)
+                            .addComponent(tulotKehys, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(uusiMerkinta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(uusiArvo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(lisaaNappi)
+                        .addGap(252, 252, 252)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tulotYhteensaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(menotYhteensaTeksti, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -420,25 +445,21 @@ public class UIKehys extends javax.swing.JPanel {
     }//GEN-LAST:event_tallennaNappiActionPerformed
 
     private void lisaaNappiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lisaaNappiActionPerformed
-        String s = (String) JOptionPane.showInputDialog(
-                this,
-                "Merkinnän nimi:",
-                "Uusi merkintä",
-                JOptionPane.PLAIN_MESSAGE,
-                null, null, "");
+        String s = uusiMerkinta.getText();
         if (s != null && !s.isEmpty() && !this.budjetti.haeMap().keySet().contains(s)) {
-            String s2 = (String) JOptionPane.showInputDialog(
-                    this,
-                    "Anna merkinnän arvo:",
-                    "Uusi merkintä",
-                    JOptionPane.PLAIN_MESSAGE,
-                    null, null, "");
+            String s2 = uusiArvo.getText();
             try {
                 double luku = Double.parseDouble(s2);
                 this.budjetti.lisaaArvo(s, luku);
+                uusiMerkinta.setText("");
+                uusiArvo.setText("");
             } catch (NumberFormatException e) {
                 this.virheIlmoitus.syoteEiLuku();
             }
+        } else if (s.isEmpty()) {
+            this.virheIlmoitus.tyhjaKentta();
+        } else if (this.budjetti.haeMap().keySet().contains(s)) {
+            this.virheIlmoitus.merkinnanNimiJoKaytossa();
         }
         paivitaKaikki();
     }//GEN-LAST:event_lisaaNappiActionPerformed
@@ -465,6 +486,10 @@ public class UIKehys extends javax.swing.JPanel {
         paivitaKaikki();
     }//GEN-LAST:event_poistaTuloActionPerformed
 
+    private void uusiArvoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uusiArvoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_uusiArvoActionPerformed
+
     public void paivitaKaikki() {
         if (this.onkoBudjettiAvattuna == true) {
             menotYhteensaTeksti.setText("Menot Yhteensä: " + this.budjetti.menotSumma() + " €");
@@ -476,6 +501,8 @@ public class UIKehys extends javax.swing.JPanel {
             suljeNappi.setEnabled(true);
             lisaaNappi.setEnabled(true);
             poistaTulo.setEnabled(true);
+            uusiMerkinta.setEditable(true);
+            uusiArvo.setEditable(true);
             budjetinNimi.setText("Budjetin nimi: " + this.budjetti.budjetinNimi());
             tekijanNimi.setText("Tekijä: " + this.budjetti.budjetinTekija());
             luontiPaivaTeksti.setText("Luonti päivä: " + this.budjetti.budjetinLuontiPaiva());
@@ -519,6 +546,8 @@ public class UIKehys extends javax.swing.JPanel {
             lisaaNappi.setEnabled(false);
             poistaMeno.setEnabled(false);
             poistaTulo.setEnabled(false);
+            uusiMerkinta.setEditable(false);
+            uusiArvo.setEditable(false);
             budjetinNimi.setText("Budjetin nimi: -");
             tekijanNimi.setText("Tekijä: -");
             luontiPaivaTeksti.setText("Luonti päivä: -");
@@ -563,6 +592,8 @@ public class UIKehys extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton avaaNappi;
     private javax.swing.JLabel budjetinNimi;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane6;
@@ -582,6 +613,8 @@ public class UIKehys extends javax.swing.JPanel {
     private javax.swing.JPanel tulotKehys;
     private javax.swing.JLabel tulotTeksti;
     private javax.swing.JLabel tulotYhteensaTeksti;
+    private javax.swing.JTextField uusiArvo;
+    private javax.swing.JTextField uusiMerkinta;
     private javax.swing.JButton uusiNappi;
     private javax.swing.JLabel viimeksiMuokattuTeksti;
     // End of variables declaration//GEN-END:variables

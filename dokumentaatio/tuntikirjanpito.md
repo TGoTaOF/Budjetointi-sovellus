@@ -15,3 +15,5 @@
 25.02.2016 aikaa Käytetty: n. 7h Käyttöjärjestelmän virittelyä ja parantelua.
 
 26.02.2016 aikaa käytetty: n. 4h Rakenne kuvaus ja Käyttöohjeet. Raporttien generointi + jar-tiedosto.
+
+04.03.2016 aikaa Käytetty: n. 2h Käyttöliittymään viimeinen muutos. Lopupalautuksen palautus.

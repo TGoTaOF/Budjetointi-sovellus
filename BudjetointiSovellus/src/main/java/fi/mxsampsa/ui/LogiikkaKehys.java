@@ -22,6 +22,7 @@ public class LogiikkaKehys extends javax.swing.JFrame {
      */
     public LogiikkaKehys() {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.budjetti = new Budjetti();
         this.ui = new UIKehys(this.budjetti);
         this.add(this.ui);

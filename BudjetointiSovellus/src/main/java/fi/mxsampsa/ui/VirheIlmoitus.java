@@ -72,8 +72,8 @@ public class VirheIlmoitus {
      */
     public boolean syoteEiLuku() {
         JOptionPane.showMessageDialog(this.kehys,
-                "Ei syötetty lukua!",
-                "Ei syötetty lukua!",
+                "Ei syötetty kelvollista arvoa.",
+                "Virheellinen arvo.",
                 JOptionPane.WARNING_MESSAGE);
         return true;
     }
@@ -130,6 +130,26 @@ public class VirheIlmoitus {
         JOptionPane.showMessageDialog(this.kehys,
                 "Valitse rivi ennen poistoa.",
                 "Valitse rivi!",
+                JOptionPane.WARNING_MESSAGE);
+    }
+    
+    /**
+     * Ilmoittaa jos yritettiin lisätä merkintää tyhjällä nimellä.
+     */
+    public void tyhjaKentta() {
+        JOptionPane.showMessageDialog(this.kehys,
+                "Tyhjä kenttä ei kelpaa merkinnän nimeksi.",
+                "Tyhjä kenttä.",
+                JOptionPane.WARNING_MESSAGE);
+    }
+    
+    /**
+     * Ilmoittaa jos merkintä kyseisellä nimellä lyötyy jo budjetista.
+     */
+    public void merkinnanNimiJoKaytossa() {
+        JOptionPane.showMessageDialog(this.kehys,
+                "Merkintä tällä nimellä on jo olemassa.",
+                "virheellinen nimi.",
                 JOptionPane.WARNING_MESSAGE);
     }
 }

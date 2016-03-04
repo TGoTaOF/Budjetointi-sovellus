@@ -6,6 +6,8 @@
 
 package fi.mxsampsa.ui;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,6 +20,7 @@ import static org.junit.Assert.*;
  * @author Sampsa
  */
 public class VirheIlmoitusTest {
+    private VirheIlmoitus ilmoitus;
     
     public VirheIlmoitusTest() {
     }
@@ -32,9 +35,16 @@ public class VirheIlmoitusTest {
     
     @Before
     public void setUp() {
+        JPanel panel = new JPanel();
+        ilmoitus = new VirheIlmoitus(panel);
     }
     
     @After
     public void tearDown() {
+    }
+
+    @Test
+    public void virheetonSyöte() {
+        assertEquals(false, ilmoitus.virheellinenSyote("asd"));
     }
 }
